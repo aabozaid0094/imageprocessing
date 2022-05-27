@@ -19,8 +19,11 @@ class Static {
                     body{font-size:1.25em; line-height:1.5;}
                     .navigation{display:flex; align-items:center; justify-content:center;}
                     .navigation a{padding:10px 20px; text-decoration:none; font-size:24px; color:#555;}
-                    .thumbs-gallery{display:flex; align-items:center; justify-content:center; flex-wrap:wrap;}
-                    .thumbs-gallery .thumb-image{width:300px; height:auto;}
+                    .gallery{display:flex; align-items:center; justify-content:center; flex-wrap:wrap;}
+                    .gallery .thumb-image{width:200px; height:auto;}
+                    .gallery figcaption{text-align:center;}
+                    .gallery figure{margin:15px; padding:15px; box-shadow:0px 2px 10px 0 rgba(0,0,0,0.1); transition:all 0.3s ease-in-out;}
+                    .gallery figure:hover{box-shadow:0px 5px 15px 0 rgba(0,0,0,0.1); transform:translateY(-5px);}
                 </style>
             </head>
             <body>
@@ -37,12 +40,8 @@ class Static {
     /**
      * extendedFilenameObject: Image
      */
-    public extendedFilenameObject = (extendedFilename: string): Image => {
-        let thumbFileNameParts = extendedFilename.split('.')
-        const thumbFileName = thumbFileNameParts
-            .slice(0, thumbFileNameParts.length - 1)
-            .join('.')
-        thumbFileNameParts = thumbFileName.split('-')
+    public extendedFilenameObject = (abbreviatedFilename: string): Image => {
+        let thumbFileNameParts = abbreviatedFilename.split('-')
         const thumbName = thumbFileNameParts
             .slice(0, thumbFileNameParts.length - 1)
             .join('-')

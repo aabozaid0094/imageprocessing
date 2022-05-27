@@ -7,21 +7,46 @@ const emptyQuery = (req: Request, res: Response, next: NextFunction) => {
         req.query.width == null ||
         req.query.height == null
     ) {
+
         const fullFilenames = Static.getFilenames(Static.fullPath, true)
-        let availableImagesHTML = ''
+        let availableImagesHTML = `<p>*Sorry no images exist at the moment.</p>`
+        if (fullFilenames.length > 0) {
+            availableImagesHTML =
+                '<h2>Available Images:-</h2><section class="gallery">'
+            fullFilenames.forEach((extendedFilename) => {
+                const thumbImageHTML =
+                    '<img class="thumb-image" src="/full/' +
+                    extendedFilename +
+                    '.jpg' +
+                    '" alt="' +
+                    extendedFilename +
+                    '"/>'
+                const thumbImageCaptionHTML =
+                    '<figcaption>' + extendedFilename + '</figcaption>'
+                availableImagesHTML +=
+                    '<figure>' +
+                    thumbImageHTML +
+                    thumbImageCaptionHTML +
+                    '</figure>'
+            })
+            availableImagesHTML += '</section>'
+        }
+
+        const abbreviatedFullFilenames = Static.getFilenames(Static.fullPath, true)
+        // let availableImagesSelectListHTML = ''
         let availableImagesSelectList = ''
         let formHtml = ''
         const currentUrl =
             req.protocol + '://' + req.get('host') + req.originalUrl
-        if (fullFilenames.length > 0) {
-            availableImagesHTML = '<h2>Available Filenames:-</h2><ul>'
-            fullFilenames.forEach((fullFilename) => {
-                availableImagesHTML += '<li>' + fullFilename + '</li>'
-            })
-            availableImagesHTML += '</ul>'
+        if (abbreviatedFullFilenames.length > 0) {
+            // availableImagesSelectListHTML = '<h2>Available Filenames:-</h2><ul>'
+            // abbreviatedFullFilenames.forEach((fullFilename) => {
+            //     availableImagesSelectListHTML += '<li>' + fullFilename + '</li>'
+            // })
+            // availableImagesSelectListHTML += '</ul>'
             availableImagesSelectList =
                 '<select name="filename" id="filenameSelectList">'
-            fullFilenames.forEach((fullFilename) => {
+                abbreviatedFullFilenames.forEach((fullFilename) => {
                 availableImagesSelectList +=
                     '<option value="' +
                     fullFilename +

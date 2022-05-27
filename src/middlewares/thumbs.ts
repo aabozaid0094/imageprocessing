@@ -13,14 +13,14 @@ const thumbs = (req: Request, res: Response, next: NextFunction) => {
         }
     }
     if (!clearThumbs) {
-        const thumbFilenames = Static.getFilenames(Static.thumbPath)
+        const thumbFilenames = Static.getFilenames(Static.thumbPath, true)
         let availableImagesHTML = `<p>*No thumbs created, use the following <a href='/api/images'>images</a> route with parameters to create some.</p>`
         let formHtml = ''
         const currentUrl =
             req.protocol + '://' + req.get('host') + req.originalUrl
         if (thumbFilenames.length > 0) {
             availableImagesHTML =
-                '<h2>Available Thumbs:-</h2><section class="thumbs-gallery">'
+                '<h2>Available Thumbs:-</h2><section class="gallery">'
             thumbFilenames.forEach((extendedFilename) => {
                 const thumbImage: Image = Static.extendedFilenameObject(
                     extendedFilename as string
