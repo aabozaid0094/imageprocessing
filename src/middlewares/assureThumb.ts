@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import sharp from 'sharp'
 import Image from '../classes/Image'
 import Static from '../Static'
 
@@ -32,19 +31,6 @@ const assureThumb = async (
             ) !== -1
         )
     ) {
-        try {
-            await sharp(Static.fullPath + passedImage.name + '.jpg')
-                .resize(passedImage.width, passedImage.height)
-                .toFile(Static.thumbPath + passedImage.filename + '.jpg')
-                .then(() => {
-                    // output.png is a 200 pixels wide and 300 pixels high image
-                    // containing a nearest-neighbour scaled version
-                    // contained within the north-east corner of a semi-transparent white canvas
-                    console.log('Thumb is created')
-                })
-        } catch (error) {
-            console.log(error)
-        }
         const inputImageFullPath = Static.fullPath + passedImage.name + '.jpg'
         const width = passedImage.width
         const height = passedImage.height

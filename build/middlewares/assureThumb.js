@@ -39,11 +39,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var sharp_1 = __importDefault(require("sharp"));
 var Image_1 = __importDefault(require("../classes/Image"));
 var Static_1 = __importDefault(require("../Static"));
 var assureThumb = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var queryFilename, queryWidth, queryHieght, existingThumbs, thumbFilenames, passedImage, error_1, inputImageFullPath, width, height, outputImageFullPath, isResizedImageCreated;
+    var queryFilename, queryWidth, queryHieght, existingThumbs, thumbFilenames, passedImage, inputImageFullPath, width, height, outputImageFullPath, isResizedImageCreated;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -56,42 +55,22 @@ var assureThumb = function (req, res, next) { return __awaiter(void 0, void 0, v
                     existingThumbs.push(Static_1.default.extendedFilenameObject(file));
                 });
                 passedImage = new Image_1.default(queryFilename, Number(queryWidth) || 100, Number(queryHieght) || 100);
-                if (!!(existingThumbs.findIndex(function (obj) { return obj.filename === passedImage.filename; }) !== -1)) return [3 /*break*/, 6];
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, (0, sharp_1.default)(Static_1.default.fullPath + passedImage.name + '.jpg')
-                        .resize(passedImage.width, passedImage.height)
-                        .toFile(Static_1.default.thumbPath + passedImage.filename + '.jpg')
-                        .then(function () {
-                        // output.png is a 200 pixels wide and 300 pixels high image
-                        // containing a nearest-neighbour scaled version
-                        // contained within the north-east corner of a semi-transparent white canvas
-                        console.log('Thumb is created');
-                    })];
-            case 2:
-                _a.sent();
-                return [3 /*break*/, 4];
-            case 3:
-                error_1 = _a.sent();
-                console.log(error_1);
-                return [3 /*break*/, 4];
-            case 4:
+                if (!!(existingThumbs.findIndex(function (obj) { return obj.filename === passedImage.filename; }) !== -1)) return [3 /*break*/, 2];
                 inputImageFullPath = Static_1.default.fullPath + passedImage.name + '.jpg';
                 width = passedImage.width;
                 height = passedImage.height;
                 outputImageFullPath = Static_1.default.thumbPath + passedImage.filename + '.jpg';
                 return [4 /*yield*/, Static_1.default.imageResize(inputImageFullPath, width, height, outputImageFullPath)];
-            case 5:
+            case 1:
                 isResizedImageCreated = _a.sent();
                 isResizedImageCreated
                     ? console.log('Thumb is created')
                     : console.log('Thumb creation aborted, probable wrong input filename');
-                return [3 /*break*/, 7];
-            case 6:
+                return [3 /*break*/, 3];
+            case 2:
                 console.log('Thumb already exists');
-                _a.label = 7;
-            case 7:
+                _a.label = 3;
+            case 3:
                 res.locals.passedImage = passedImage;
                 next();
                 return [2 /*return*/];
