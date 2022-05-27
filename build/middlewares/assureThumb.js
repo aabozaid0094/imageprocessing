@@ -40,7 +40,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var sharp_1 = __importDefault(require("sharp"));
-var fs_1 = __importDefault(require("fs"));
 var Image_1 = __importDefault(require("../classes/Image"));
 var Static_1 = __importDefault(require("../Static"));
 var assureThumb = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
@@ -52,7 +51,7 @@ var assureThumb = function (req, res, next) { return __awaiter(void 0, void 0, v
                 queryWidth = req.query.width;
                 queryHieght = req.query.height;
                 existingThumbs = [];
-                thumbFilenames = fs_1.default.readdirSync(Static_1.default.thumbPath);
+                thumbFilenames = Static_1.default.getFilenames(Static_1.default.thumbPath, true);
                 thumbFilenames.forEach(function (file) {
                     existingThumbs.push(Static_1.default.extendedFilenameObject(file));
                 });

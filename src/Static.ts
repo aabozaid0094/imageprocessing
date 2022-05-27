@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs, { readdirSync } from 'fs'
 import Image from './classes/Image'
 
 class Static {
@@ -24,6 +24,9 @@ class Static {
                     .gallery figcaption{text-align:center;}
                     .gallery figure{margin:15px; padding:15px; box-shadow:0px 2px 10px 0 rgba(0,0,0,0.1); transition:all 0.3s ease-in-out;}
                     .gallery figure:hover{box-shadow:0px 5px 15px 0 rgba(0,0,0,0.1); transform:translateY(-5px);}
+                    .form-wrapper{display:flex; align-items:center; justify-content:center; margin:20px;}
+                    .form-wrapper form{display:inline-flex; align-items:center; justify-content:center; padding:20px; background-color:rgba(128,128,128,.3); border-radius:10px;}
+                    .form-wrapper form input, .form-wrapper form select{line-height:1.5; height:30px; margin:0 5px; padding:5px 10px; box-sizing:content-box;}
                 </style>
             </head>
             <body>
@@ -36,6 +39,12 @@ class Static {
         this.footer = '</body></html>'
         this.fullPath = './assets/full/'
         this.thumbPath = './assets/thumb/'
+    }
+    public assureReaddirSync = (path: string): string[] => {
+        if (!fs.existsSync(path)) {
+            fs.mkdirSync(path)
+        }
+        return readdirSync(path)
     }
     /**
      * extendedFilenameObject: Image
@@ -63,7 +72,7 @@ class Static {
         Abbreviated: boolean = false
     ): string[] => {
         const fullFilenames: string[] = []
-        const extendedFullFilenames: string[] = fs.readdirSync(path)
+        const extendedFullFilenames: string[] = this.assureReaddirSync(path)
         extendedFullFilenames.forEach((extendedfullFilename) => {
             const fullFilenameParts = extendedfullFilename.split('.')
             const fullFilename = fullFilenameParts

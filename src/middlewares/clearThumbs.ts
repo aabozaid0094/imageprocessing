@@ -4,7 +4,7 @@ import Static from '../Static'
 
 const clearThumbs = (req: Request, res: Response, next: NextFunction) => {
     const clearedThumbs = []
-    const thumbFileNames = fs.readdirSync(Static.thumbPath)
+    const thumbFileNames = Static.assureReaddirSync(Static.thumbPath)
     if (thumbFileNames.length > 0) {
         for (const thumbFileName of thumbFileNames) {
             console.log(thumbFileName + ': File Deleted Successfully.')

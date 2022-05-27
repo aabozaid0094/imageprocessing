@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 import sharp from 'sharp'
-import fs from 'fs'
 import Image from '../classes/Image'
 import Static from '../Static'
 
@@ -11,7 +10,7 @@ const assureThumb = async (req: Request, res: Response, next: NextFunction) => {
 
     const existingThumbs: Image[] = []
 
-    const thumbFilenames = fs.readdirSync(Static.thumbPath)
+    const thumbFilenames = Static.getFilenames(Static.thumbPath, true)
     thumbFilenames.forEach((file) => {
         existingThumbs.push(Static.extendedFilenameObject(file as string))
     })

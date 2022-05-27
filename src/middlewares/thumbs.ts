@@ -42,10 +42,12 @@ const thumbs = (req: Request, res: Response, next: NextFunction) => {
             })
             availableImagesHTML += '</section>'
             formHtml = `
-        <form action="${currentUrl}" method="get">
-            <input type="hidden" name="clearThumbs" value="true">
-            <input type="submit" value="Clear Thumb">
-        </form>`
+            <div class="form-wrapper">
+                <form action="${currentUrl}" method="get">
+                    <input type="hidden" name="clearThumbs" value="true">
+                    <input type="submit" value="Clear Thumb">
+                </form>
+            </div>`
         }
         res.send(
             `${Static.header}

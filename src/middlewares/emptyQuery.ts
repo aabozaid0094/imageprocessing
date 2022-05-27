@@ -7,7 +7,6 @@ const emptyQuery = (req: Request, res: Response, next: NextFunction) => {
         req.query.width == null ||
         req.query.height == null
     ) {
-
         const fullFilenames = Static.getFilenames(Static.fullPath, true)
         let availableImagesHTML = `<p>*Sorry no images exist at the moment.</p>`
         if (fullFilenames.length > 0) {
@@ -32,7 +31,10 @@ const emptyQuery = (req: Request, res: Response, next: NextFunction) => {
             availableImagesHTML += '</section>'
         }
 
-        const abbreviatedFullFilenames = Static.getFilenames(Static.fullPath, true)
+        const abbreviatedFullFilenames = Static.getFilenames(
+            Static.fullPath,
+            true
+        )
         // let availableImagesSelectListHTML = ''
         let availableImagesSelectList = ''
         let formHtml = ''
@@ -46,22 +48,24 @@ const emptyQuery = (req: Request, res: Response, next: NextFunction) => {
             // availableImagesSelectListHTML += '</ul>'
             availableImagesSelectList =
                 '<select name="filename" id="filenameSelectList">'
-                abbreviatedFullFilenames.forEach((fullFilename) => {
+            abbreviatedFullFilenames.forEach((fullFilename) => {
                 availableImagesSelectList +=
                     '<option value="' +
                     fullFilename +
                     '">' +
-                    fullFilename.toUpperCase() +
+                    fullFilename +
                     '</option>'
             })
             availableImagesSelectList += '</select>'
             formHtml = `
-      <form action="${currentUrl}" method="get">
-          ${availableImagesSelectList}
-          <input type="number" min="10" step="10" name="width" id="thumbWidth" value="300">
-          <input type="number" min="10" step="10" name="height" id="thumbHeight" value="200">
-          <input type="submit" value="Get Thumb">
-      </form>`
+            <div class="form-wrapper">
+                <form action="${currentUrl}" method="get">
+                    ${availableImagesSelectList}
+                    <input type="number" min="10" step="10" name="width" id="thumbWidth" value="300">
+                    <input type="number" min="10" step="10" name="height" id="thumbHeight" value="200">
+                    <input type="submit" value="Get Thumb">
+                </form>
+            </div>`
         }
         res.send(
             `${Static.header}

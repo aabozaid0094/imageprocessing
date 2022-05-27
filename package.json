@@ -10,7 +10,8 @@
     "build": "npx tsc",
     "jasmine": "jasmine",
     "test": "npm run build && npm run jasmine",
-    "start": "node build/index.js"
+    "start": "node build/index.js",
+    "combostarter": "npm run prettier && npm run lint && npm run test && npm run start"
   },
   "keywords": [],
   "author": "AhmedAboZaid",

@@ -47,11 +47,11 @@ var emptyQuery = function (req, res, next) {
                     '<option value="' +
                         fullFilename +
                         '">' +
-                        fullFilename.toUpperCase() +
+                        fullFilename +
                         '</option>';
             });
             availableImagesSelectList_1 += '</select>';
-            formHtml = "\n      <form action=\"".concat(currentUrl, "\" method=\"get\">\n          ").concat(availableImagesSelectList_1, "\n          <input type=\"number\" min=\"10\" step=\"10\" name=\"width\" id=\"thumbWidth\" value=\"300\">\n          <input type=\"number\" min=\"10\" step=\"10\" name=\"height\" id=\"thumbHeight\" value=\"200\">\n          <input type=\"submit\" value=\"Get Thumb\">\n      </form>");
+            formHtml = "\n            <div class=\"form-wrapper\">\n                <form action=\"".concat(currentUrl, "\" method=\"get\">\n                    ").concat(availableImagesSelectList_1, "\n                    <input type=\"number\" min=\"10\" step=\"10\" name=\"width\" id=\"thumbWidth\" value=\"300\">\n                    <input type=\"number\" min=\"10\" step=\"10\" name=\"height\" id=\"thumbHeight\" value=\"200\">\n                    <input type=\"submit\" value=\"Get Thumb\">\n                </form>\n            </div>");
         }
         res.send("".concat(Static_1.default.header, "\n            <h1>Images Route</h1>\n            <h2>Parameters</h2>\n            <ul>\n                <li>filename from the \"Available Filenames\" list</li>\n                <li>width numbers(0-9)</li>\n                <li>height numbers(0-9)</li>\n            </ul>\n            <p>*Examle /api/images?filename=filename&width=300&height=200</p>\n            ").concat(availableImagesHTML_1, "\n            ").concat(formHtml, "\n            ").concat(Static_1.default.footer));
     }

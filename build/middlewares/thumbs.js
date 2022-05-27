@@ -39,7 +39,7 @@ var thumbs = function (req, res, next) {
                         '</figure>';
             });
             availableImagesHTML_1 += '</section>';
-            formHtml = "\n        <form action=\"".concat(currentUrl, "\" method=\"get\">\n            <input type=\"hidden\" name=\"clearThumbs\" value=\"true\">\n            <input type=\"submit\" value=\"Clear Thumb\">\n        </form>");
+            formHtml = "\n            <div class=\"form-wrapper\">\n                <form action=\"".concat(currentUrl, "\" method=\"get\">\n                    <input type=\"hidden\" name=\"clearThumbs\" value=\"true\">\n                    <input type=\"submit\" value=\"Clear Thumb\">\n                </form>\n            </div>");
         }
         res.send("".concat(Static_1.default.header, "\n      <h1>Thumbs Route</h1>\n      ").concat(availableImagesHTML_1, "\n      ").concat(formHtml, "\n      ").concat(Static_1.default.footer));
     }
