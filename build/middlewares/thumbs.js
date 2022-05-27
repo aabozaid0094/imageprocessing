@@ -16,13 +16,13 @@ var thumbs = function (req, res, next) {
         }
     }
     if (!clearThumbs) {
-        var thumbFilenames = Static_1.default.getFilenames(Static_1.default.thumbPath);
+        var thumbFilenames = Static_1.default.getFilenames(Static_1.default.thumbPath, true);
         var availableImagesHTML_1 = "<p>*No thumbs created, use the following <a href='/api/images'>images</a> route with parameters to create some.</p>";
         var formHtml = '';
         var currentUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
         if (thumbFilenames.length > 0) {
             availableImagesHTML_1 =
-                '<h2>Available Thumbs:-</h2><section class="thumbs-gallery">';
+                '<h2>Available Thumbs:-</h2><section class="gallery">';
             thumbFilenames.forEach(function (extendedFilename) {
                 var thumbImage = Static_1.default.extendedFilenameObject(extendedFilename);
                 var thumbImageHTML = '<img class="thumb-image" src="/thumb/' +
@@ -33,7 +33,10 @@ var thumbs = function (req, res, next) {
                     '"/>';
                 var thumbImageCaptionHTML = '<figcaption>' + thumbImage.filename + '</figcaption>';
                 availableImagesHTML_1 +=
-                    '<figure>' + thumbImageHTML + thumbImageCaptionHTML + '</figure>';
+                    '<figure>' +
+                        thumbImageHTML +
+                        thumbImageCaptionHTML +
+                        '</figure>';
             });
             availableImagesHTML_1 += '</section>';
             formHtml = "\n        <form action=\"".concat(currentUrl, "\" method=\"get\">\n            <input type=\"hidden\" name=\"clearThumbs\" value=\"true\">\n            <input type=\"submit\" value=\"Clear Thumb\">\n        </form>");
