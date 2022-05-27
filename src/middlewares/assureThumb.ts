@@ -21,8 +21,8 @@ const assureThumb = async (
 
     const passedImage = new Image(
         queryFilename as unknown as string,
-        Number(queryWidth) || 0,
-        Number(queryHieght) || 0
+        Number(queryWidth) || 100,
+        Number(queryHieght) || 100
     )
 
     if (
@@ -45,6 +45,22 @@ const assureThumb = async (
         } catch (error) {
             console.log(error)
         }
+        const inputImageFullPath = Static.fullPath + passedImage.name + '.jpg'
+        const width = passedImage.width
+        const height = passedImage.height
+        const outputImageFullPath =
+            Static.thumbPath + passedImage.filename + '.jpg'
+        const isResizedImageCreated = await Static.imageResize(
+            inputImageFullPath,
+            width,
+            height,
+            outputImageFullPath
+        )
+        isResizedImageCreated
+            ? console.log('Thumb is created')
+            : console.log(
+                  'Thumb creation aborted, probable wrong input filename'
+              )
     } else {
         console.log('Thumb already exists')
     }

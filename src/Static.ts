@@ -1,4 +1,5 @@
 import fs, { readdirSync } from 'fs'
+import sharp from 'sharp'
 import Image from './classes/Image'
 
 class Static {
@@ -40,6 +41,9 @@ class Static {
         this.fullPath = './assets/full/'
         this.thumbPath = './assets/thumb/'
     }
+    /**
+     * assureReaddirSync: string[]
+     */
     public assureReaddirSync = (path: string): string[] => {
         if (!fs.existsSync(path)) {
             fs.mkdirSync(path)
@@ -81,6 +85,25 @@ class Static {
             fullFilenames.push(fullFilename)
         })
         return Abbreviated ? fullFilenames : extendedFullFilenames
+    }
+    /**
+     * sharpResize: Promise<void>
+     */
+    public imageResize = async (
+        inputImageFullPath: string,
+        width: number,
+        height: number,
+        outputImageFullPath: string
+    ): Promise<boolean> => {
+        try {
+            await sharp(inputImageFullPath)
+                .resize(width, height)
+                .toFile(outputImageFullPath)
+            return true
+        } catch (error) {
+            console.log(error)
+            return false
+        }
     }
 }
 export default new Static()

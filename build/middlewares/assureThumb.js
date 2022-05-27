@@ -43,7 +43,7 @@ var sharp_1 = __importDefault(require("sharp"));
 var Image_1 = __importDefault(require("../classes/Image"));
 var Static_1 = __importDefault(require("../Static"));
 var assureThumb = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var queryFilename, queryWidth, queryHieght, existingThumbs, thumbFilenames, passedImage, error_1;
+    var queryFilename, queryWidth, queryHieght, existingThumbs, thumbFilenames, passedImage, error_1, inputImageFullPath, width, height, outputImageFullPath, isResizedImageCreated;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -55,8 +55,8 @@ var assureThumb = function (req, res, next) { return __awaiter(void 0, void 0, v
                 thumbFilenames.forEach(function (file) {
                     existingThumbs.push(Static_1.default.extendedFilenameObject(file));
                 });
-                passedImage = new Image_1.default(queryFilename, Number(queryWidth) || 0, Number(queryHieght) || 0);
-                if (!!(existingThumbs.findIndex(function (obj) { return obj.filename === passedImage.filename; }) !== -1)) return [3 /*break*/, 5];
+                passedImage = new Image_1.default(queryFilename, Number(queryWidth) || 100, Number(queryHieght) || 100);
+                if (!!(existingThumbs.findIndex(function (obj) { return obj.filename === passedImage.filename; }) !== -1)) return [3 /*break*/, 6];
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
@@ -76,11 +76,22 @@ var assureThumb = function (req, res, next) { return __awaiter(void 0, void 0, v
                 error_1 = _a.sent();
                 console.log(error_1);
                 return [3 /*break*/, 4];
-            case 4: return [3 /*break*/, 6];
+            case 4:
+                inputImageFullPath = Static_1.default.fullPath + passedImage.name + '.jpg';
+                width = passedImage.width;
+                height = passedImage.height;
+                outputImageFullPath = Static_1.default.thumbPath + passedImage.filename + '.jpg';
+                return [4 /*yield*/, Static_1.default.imageResize(inputImageFullPath, width, height, outputImageFullPath)];
             case 5:
-                console.log('Thumb already exists');
-                _a.label = 6;
+                isResizedImageCreated = _a.sent();
+                isResizedImageCreated
+                    ? console.log('Thumb is created')
+                    : console.log('Thumb creation aborted, probable wrong input filename');
+                return [3 /*break*/, 7];
             case 6:
+                console.log('Thumb already exists');
+                _a.label = 7;
+            case 7:
                 res.locals.passedImage = passedImage;
                 next();
                 return [2 /*return*/];
