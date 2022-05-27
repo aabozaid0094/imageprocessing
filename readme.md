@@ -27,6 +27,7 @@ To run this project, install it locally using npm:
 $ npm run build //to rebuild project, update js files
 $ npm run test //to test project
 $ npm run start //to start the node server
+$ npm run combostarter //to run prettier then lint then build then run the tests then start the node (built js) server
 ```
 then surf localhost:3000
 
