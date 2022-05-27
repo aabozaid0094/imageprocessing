@@ -38,8 +38,8 @@ describe('Test endpoint response', () => {
         expect(response.status).toBe(200)
         // done()
     })
-    it('gets the thumbs endpoint with clear parameter', async (/*done*/) => {
-        const response = await request.get('/api/thumbs?clearThumb=true')
+    it('gets the thumbs endpoint with clear thumbs parameter', async (/*done*/) => {
+        const response = await request.get('/api/thumbs?clearThumbs=true')
         expect(response.status).toBe(200)
         // done()
     })

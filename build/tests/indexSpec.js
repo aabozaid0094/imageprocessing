@@ -115,11 +115,11 @@ describe('Test endpoint response', function () {
             }
         });
     }); });
-    it('gets the thumbs endpoint with clear parameter', function ( /*done*/) { return __awaiter(void 0, void 0, void 0, function () {
+    it('gets the thumbs endpoint with clear thumbs parameter', function ( /*done*/) { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get('/api/thumbs?clearThumb=true')];
+                case 0: return [4 /*yield*/, request.get('/api/thumbs?clearThumbs=true')];
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(200);

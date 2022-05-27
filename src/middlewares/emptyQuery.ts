@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import Static from '../Static'
 
-const emptyQuery = (req: Request, res: Response, next: NextFunction) => {
+const emptyQuery = (req: Request, res: Response, next: NextFunction): void => {
     if (
         req.query.filename == null ||
         req.query.width == null ||

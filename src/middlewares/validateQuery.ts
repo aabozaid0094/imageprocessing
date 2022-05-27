@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
 import Static from '../Static'
 
-const validateQuery = (req: Request, res: Response, next: NextFunction) => {
+const validateQuery = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): void => {
     const queryFilename = req.query.filename as unknown as string
     const isFullFilenamelengthy = queryFilename.trim().length > 0
     const queryWidth = req.query.width as unknown as string

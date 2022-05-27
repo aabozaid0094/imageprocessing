@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import Image from '../classes/Image'
 import Static from '../Static'
 
-const getThumb = (req: Request, res: Response) => {
+const getThumb = (req: Request, res: Response): void => {
     const passedImage = res.locals.passedImage as unknown as Image
     res.send(
         `${Static.header}

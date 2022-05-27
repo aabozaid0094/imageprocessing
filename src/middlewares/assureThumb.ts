@@ -3,7 +3,11 @@ import sharp from 'sharp'
 import Image from '../classes/Image'
 import Static from '../Static'
 
-const assureThumb = async (req: Request, res: Response, next: NextFunction) => {
+const assureThumb = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
     const queryFilename = req.query.filename as unknown as string
     const queryWidth = req.query.width as unknown as string
     const queryHieght = req.query.height as unknown as string

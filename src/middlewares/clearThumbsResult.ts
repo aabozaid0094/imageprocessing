@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import Static from '../Static'
 
-const clearThumbsResult = (req: Request, res: Response) => {
+const clearThumbsResult = (req: Request, res: Response): void => {
     const clearedThumbs = res.locals.clearedThumbs as unknown as string[]
     let clearedThumbsHTML = ''
     if (clearedThumbs.length > 0) {

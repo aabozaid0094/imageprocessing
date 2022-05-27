@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import Static from '../Static'
 import Image from '../classes/Image'
 
-const thumbs = (req: Request, res: Response, next: NextFunction) => {
+const thumbs = (req: Request, res: Response, next: NextFunction): void => {
     let clearThumbs = false
     const queryClearThumbs = req.query.clearThumbs as unknown as string
     if (queryClearThumbs != null && queryClearThumbs.length > 0) {
